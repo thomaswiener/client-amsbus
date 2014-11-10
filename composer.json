@@ -1,0 +1,25 @@
+{
+    "name": "thomaswiener/client-amsbus",
+    "description": "amsbus booking client",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Thomas Wiener",
+            "homepage": "http://wiener.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*",
+        "guzzle/guzzle": "~3.1.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "AmsBusClient": "src/"
+        }
+    }
+}

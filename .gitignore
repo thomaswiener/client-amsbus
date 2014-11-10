@@ -1,0 +1,8 @@
+.idea
+
+vendor/
+code-coverage/
+log/*
+
+composer.phar
+composer.lock
