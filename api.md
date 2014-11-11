@@ -91,7 +91,7 @@ Parameter          | type                                    | description
 {guid}             | string                                  | ID partner (static, received from the service admin)
 {handleThere}      | int                                     | handle connection there
 {idx}              | int                                     | index connection there
-request body       | [SeatRequest](# ConnectionArray (JSON)) | equired tariff (rate) and seats
+request body       | [SeatRequest](#ConnectionArray)         | equired tariff (rate) and seats
 
 #### Response
 
@@ -276,7 +276,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 
 ### Data Types
 
-#### ConnectionArray (JSON)
+####ConnectionArray
 
 ```php
 {
@@ -308,7 +308,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-#### ConnectionInfo (JSON)
+####ConnectionInfo
 
 ```php
 {
@@ -366,7 +366,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-#### SeatRequest (JSON)
+####SeatRequest
 
 ```php
 {
@@ -379,7 +379,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-#### BlockInfo (JSON)
+####BlockInfo
 
 ```php
 {
