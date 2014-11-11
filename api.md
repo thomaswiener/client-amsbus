@@ -276,17 +276,10 @@ This function can be executed in 15 minutes after POST Refund1 only.
 
 ### Data Types
 
-Name            | Type
-----------------|-------------
-ConnectionArray | json
-SeatRequest     |
-BlockInfo       |
-AdditionalInfo  |
-Ticket          |
-RefundInfo      |
+#### ConnectionArray (JSON)
 
 ```php
-ConnectionArray (JSON)
+
 
 {
   "handle": 366069406,
@@ -316,4 +309,142 @@ ConnectionArray (JSON)
   "currency": 1
 }
 
+```
+
+#### ConnectionInfo (JSON)
+
+```php
+{
+  "prices": [
+    {
+      "tarCode": "P",
+      "fareType": "Vollpreis",
+      "eur": 874,
+      "kc": 22000,
+      "bgn": 1700
+    },
+    {
+      "tarCode": "ML",
+      "fareType": "ml\u00e1de\u017e do 26 let",
+      "eur": 755,
+      "kc": 19000,
+      "bgn": 1500
+    }
+  ],
+  "pricesRet": [
+    {
+      "tarCode": "P",
+      "fareType": "in beide Richtungen Vollpreis",
+      "eur": 1589,
+      "kc": 40000,
+      "bgn": 3100
+    },
+    {
+      "tarCode": "ML",
+      "fareType": "in beide Richtungen ml\u00e1de\u017e do 26 let",
+      "eur": 1390,
+      "kc": 35000,
+      "bgn": 2700
+    }
+  ],
+  "busses": [
+    {
+      "busNumber": "1",
+      "startNum": 9,
+      "places": [
+        {
+          "num": 4,
+          "row": 4,
+          "f": 4
+        },
+        {
+          "num": 3,
+          "row": 3,
+          "f": 4
+        },
+        ....
+      ]
+    }
+  ]
+}
+
+```
+
+#### SeatRequest (JSON)
+
+```php
+{
+  "tariffs": [
+    {
+      "tarCode": "P",
+      "numPlaces": 1
+    }
+  ]
+}
+
+```
+
+#### BlockInfo (JSON)
+
+```php
+{
+  "ticketHandle": "a33bf6ee-949f-4a1f-bc6a-469ef78c6710",
+  "tickets": [
+    {
+      "direction": 0,
+      "busThere": "1",
+      "placeThere": 9,
+      "price": {
+        "tarCode": "P",
+        "fareType": "Vollpreis",
+        "eur": 874
+      },
+      "required": 2
+    }
+  ]
+}
+
+```
+
+#### AdditionalInfo (JSON)
+
+```php
+[
+  {
+    "ticketIdx": 0,
+    "name": "name 0"
+  }
+]
+
+```
+
+#### Ticket (JSON)
+
+```php
+[
+  {
+    "transCode": "R6QK7E",
+    "price": {
+      "eur": 874
+    },
+    "pdfUri": "http:\/\/eshopcv.amsbus.cz\/kosik\/PDF\/?p=R6QK7Eh6OcgI4YKaWWgMs32ZMg6Q%3d%3d"
+  }
+]
+```
+
+#### RefundInfo (JSON)
+
+```php
+{
+  "origTicket": {
+    "transCode": "R6QK7E",
+    "price": {
+      "eur": 874
+    }
+  },
+  "price": {
+    "eur": -437
+  },
+  "refundHandle": "4629f1cd-4f12-4f5b-874d-0442ae9f85c9"
+}
 ```
