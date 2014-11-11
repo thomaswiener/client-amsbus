@@ -1,6 +1,7 @@
 ## API AMS
 
 ### 1.1 GET MaskSearch
+
 ```php
 URL: v1/MaskSearch/{guid}?mask={mask}
 HTTP operation: GET
@@ -22,44 +23,56 @@ result of function | string[]   | name list of searched objects
 Description: Function enumerates the list of objects (destinations and stations) complies with the entered mask. Function returns maximally 30 objects.
 
 ### 1.2 GET Connection
+
+```php
 URL: v1/Connection/{guid}?from={from}&to={to}&dateTime={dateTime}&searchFlags={searchFlags}
 HTTP operation: GET, POST
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{from}	string	name or mask of object FROM (starting point of connection)
-{to}	string	name of mask of object TO (finishing point of connection)
-{dateTime}	DateTime	date and time of ride (if it’s not entered, actual date is used)
-{searchFlags}	int	signs for searching according enum SEARCHFLAGS (if it’s not entered, nothing)
-result of function	ConnectionArray	searched connections
-Description:
-Function solves the entered masks of objects and if successful, searches connection. As connections here, are considered only direct connections; connections with stopovers can’t be searched. Function returns maximally 10 connections. Basic details (connection handle, connection index, from, to, dates and times, standard price, line number and operator, number of free seats) are returned to each connection. By using parameter {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
+```
+
+#### Request
+
+Parameter          | type       | description
+-------------------|------------|-------------
+{guid}             | string     | ID partner (static, received from the service admin)
+{from}             | string     | name or mask of object FROM (starting point of connection)
+{to}               | string     | name of mask of object TO (finishing point of connection)
+{dateTime}         | DateTime   | date and time of ride (if it’s not entered, actual date is used)
+{searchFlags}      | int        | signs for searching according enum SEARCHFLAGS (if it’s not entered, nothing)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | ConnectionArray | searched connections
+
+Description: Function solves the entered masks of objects and if successful, searches connection. As connections here, are considered only direct connections; connections with stopovers can’t be searched. Function returns maximally 10 connections. Basic details (connection handle, connection index, from, to, dates and times, standard price, line number and operator, number of free seats) are returned to each connection. By using parameter {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
 
 ### 1.3 GET ConnectionBack
-URL: v1/ConnectionBack/{guid}/{handleThere}/{idxThere}?from={from}&to={to}&dateTime={dateTime}&
-searchFlags={searchFlags}
-HTTP operation: GET, POST
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{handleThere}	int	handle connection there
-{idxThere}	int	index connection there
-{from}	string	name or mask of object FROM (starting point of connection)
-{to}	string	name of mask of object TO (finishing point of connection)
-{dateTime}	DateTime	date and time of ride (if it’s not entered, actual date is used)
-{searchFlags}	int	signs for searching according enum SEARCHFLAGS (if it’s not entered, nothing)
-function result	ConnectionArray	searched connections
-Description:
-Function searches return connections – means those connections that are suitable for connection there (TO). Entered leaving time {dateTime}  can’t be earlier than time of connection there (TO destination).
 
-### 1.4 GET ConnectionInfo
-URL: v1/ConnectionInfo/{guid}/{handle}/{idx}
-HTTP operation: GET
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{handle}	int	handle connection
-{idx}	int	index connection
-result of function	ConnectionInfo	connection details
-Description:
-Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
+```php
+URL: v1/ConnectionBack/{guid}/{handleThere}/{idxThere}?from={from}&to={to}&dateTime={dateTime}&searchFlags={searchFlags}
+HTTP operation: GET, POST
+```
+
+#### Request
+
+Parameter          | type       | description
+-------------------|------------|-------------
+{guid}             | string     | ID partner (static, received from the service admin)
+{handleThere}      | int        | handle connection there
+{idxThere}         | int        | index connection there
+{from}             | string     | name or mask of object FROM (starting point of connection)
+{to}               | string     | name of mask of object TO (finishing point of connection)
+{dateTime}         | DateTime   | date and time of ride (if it’s not entered, actual date is used)
+{searchFlags}      | int        | signs for searching according enum SEARCHFLAGS (if it’s not entered, nothing)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | ConnectionArray | searched connections
+
+Description: Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
 
 ### 1.5 POST SeatBlock
 URL: v1/SeatBlock/{guid}/{handle}/{idx}
