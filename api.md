@@ -91,7 +91,7 @@ Parameter          | type                                    | description
 {guid}             | string                                  | ID partner (static, received from the service admin)
 {handleThere}      | int                                     | handle connection there
 {idx}              | int                                     | index connection there
-request body       | [SeatRequest](#ConnectionArray)         | equired tariff (rate) and seats
+request body       | [SeatRequest](#connectionarray)         | required tariff (rate) and seats
 
 #### Response
 
