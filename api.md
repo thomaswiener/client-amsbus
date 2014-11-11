@@ -86,12 +86,12 @@ HTTP operation: POST
 
 #### Request
 
-Parameter          | type        | description
--------------------|-------------|-------------
-{guid}             | string      | ID partner (static, received from the service admin)
-{handleThere}      | int         | handle connection there
-{idx}              | int         | index connection there
-request body       | SeatRequest | equired tariff (rate) and seats
+Parameter          | type                                    | description
+-------------------|-----------------------------------------|-------------
+{guid}             | string                                  | ID partner (static, received from the service admin)
+{handleThere}      | int                                     | handle connection there
+{idx}              | int                                     | index connection there
+request body       | [SeatRequest](# ConnectionArray (JSON)) | equired tariff (rate) and seats
 
 #### Response
 
@@ -279,8 +279,6 @@ This function can be executed in 15 minutes after POST Refund1 only.
 #### ConnectionArray (JSON)
 
 ```php
-
-
 {
   "handle": 366069406,
   "totalConnections": 10,
@@ -308,7 +306,6 @@ This function can be executed in 15 minutes after POST Refund1 only.
   "mpz": "D",
   "currency": 1
 }
-
 ```
 
 #### ConnectionInfo (JSON)
@@ -367,7 +364,6 @@ This function can be executed in 15 minutes after POST Refund1 only.
     }
   ]
 }
-
 ```
 
 #### SeatRequest (JSON)
@@ -381,7 +377,6 @@ This function can be executed in 15 minutes after POST Refund1 only.
     }
   ]
 }
-
 ```
 
 #### BlockInfo (JSON)
@@ -403,7 +398,6 @@ This function can be executed in 15 minutes after POST Refund1 only.
     }
   ]
 }
-
 ```
 
 #### AdditionalInfo (JSON)
@@ -415,7 +409,6 @@ This function can be executed in 15 minutes after POST Refund1 only.
     "name": "name 0"
   }
 ]
-
 ```
 
 #### Ticket (JSON)
