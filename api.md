@@ -151,56 +151,122 @@ If connection handle BACK was entered in BlockSeat function, purchase of both wa
 Information about created tickets (as result of function) contains mainly URL, where PDF ticket can be downloaded. Furthermore transaction code and price of course too.
 
 ### 1.8 GET Ticket
+
+```php
 URL: v1/Ticket/{guid}/{ticketHandle}
 HTTP operation: GET
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{ticketHandle}	string	handle assigned seats (from result of operation POST SeatBlock)
-result of function	Ticket[]	information about created tickets
-Description:
+```
+
+#### Request
+
+Parameter          | type             | description
+-------------------|------------------|-------------
+{guid}             | string           | ID partner (static, received from the service admin)
+{ticketHandle}     | string           | handle assigned seats (from result of operation POST SeatBlock)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | Ticket[]        | information about created tickets
+
+**Description:**
 Function allows getting data about sold tickets after purchase (means after POST Ticket operation) (the same answer that POST Ticket returns – i.e. when partner doesn’t get any answer on POST Ticket query). This function is available until 15 minutes after purchase only.
 In case operation POST Ticket wasn’t finished (or 15 minutes after execution was expired) function returns HTTP status 404 – NotFound.
 
 ### 1.9 DELETE Ticket
+
+```php
 URL: v1/Ticket/{guid}/{ticketHandle}
 HTTP operation: DELETE
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{ticketHandle}	string	handle assigned seats (from result of operation POST SeatBlock)
-result of function	Ticket[]	information about created tickets
-Description:
+```
+
+#### Request
+
+Parameter          | type             | description
+-------------------|------------------|-------------
+{guid}             | string           | ID partner (static, received from the service admin)
+{ticketHandle}     | string           | handle assigned seats (from result of operation POST SeatBlock)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | Ticket[]        | information about created tickets
+
+**Description:**
 Function allows cancelling purchase (means successful operation POST Ticket) without cancellation fee. It is determined for solution of technical problems (i.e. in case the ticket wasn’t able to get downloaded or printed) and its usage can be done within 15 minutes after purchase only.
 In case operation POST Ticket wasn’t finished (or 15 minutes after execution was expired) function returns HTTP status 404 – NotFound.
 
 ### 1.10 POST Refund1
+
+```php
 URL: v1/Refund1/{guid}/{transCode}/{operation}
 HTTP operation: POST
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{transCode}	string	6-digit transactional code of refunded
-{operation}	int	required operation, means status, which direction of ticket should be refunded (there, back or both); if it isn’t entered, direction there will be refunded
-result of function	RefundInfo	information about refund
-Description:
+```
+
+#### Request
+
+Parameter          | type             | description
+-------------------|------------------|-------------
+{guid}             | string           | ID partner (static, received from the service admin)
+{transCode}        | string           | 6-digit transactional code of refunded
+{operation}        | int              | required operation, means status, which direction of ticket should be refunded (there, back or both); if it isn’t entered, direction there will be refunded
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | RefundInfo      | information about refund
+
+**Description:**
 Functions starts refund operation of ticket – means it is blocking ticket and calculates price for refund. Subsequently, client has to decide in 15 minutes if he finishes the refund (by operation POST Refund2) or refuses (by operation DELETE Refund1) – in this case ticket remains valid. In case client doesn’t make any of these operations in 15 minutes, operation is cancelled and ticket remains valid.
 In the final structure (RefundInfo), only some data are filled (especially refund amount, handle of operation in progress).
 
 ### 1.11 DELETE Refund1
+
+```php
 URL: v1/Refund1/{guid}/{refundHandle}
 HTTP operation: DELETE
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{refundHandle}	string	handle of working returning operation (from result of POST Refund1)
-Description:
+```
+
+#### Request
+
+Parameter          | type             | description
+-------------------|------------------|-------------
+{guid}             | string           | ID partner (static, received from the service admin)
+{refundHandle}        | string        | handle of working returning operation (from result of POST Refund1)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+
+
+**Description:**
 Function cuts off refund operation (in progress by POST Refund1). User should use this function if he started refund operation and decides not to finish it. Ticket remains valid.
 This function can be executed in 15 minutes after POST Refund1 only.
 
 ### 1.12 POST Refund2
+
+```php
 URL: v1/Refund2/{guid}/{refundHandle}
 HTTP operation: POST
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{refundHandle}	string	handle of working returning operation (from result of POST Refund1)
-result of function	RefundInfo	information about refund
-Description:
+```
+
+#### Request
+
+Parameter          | type             | description
+-------------------|------------------|-------------
+{guid}             | string           | ID partner (static, received from the service admin)
+{refundHandle}        | string        | handle of working returning operation (from result of POST Refund1)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | RefundInfo      | information about refund
+
+**Description:**
 Function finishes refund operation – means really makes the ticket invalid and releases that blocked seats. If it was refund of only one direction, there is information about the new (remaining) ticket in the result (RefundInfo).
 This function can be executed in 15 minutes after POST Refund1 only.
