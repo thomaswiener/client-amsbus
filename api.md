@@ -44,9 +44,9 @@ Parameter          | type       | description
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | ConnectionArray | searched connections
+Parameter          | type                                | description
+-------------------|-------------------------------------|-------------
+result of function | [ConnectionArray](#connectionarray) | searched connections
 
 **Description:** Function solves the entered masks of objects and if successful, searches connection. As connections here, are considered only direct connections; connections with stopovers can’t be searched. Function returns maximally 10 connections. Basic details (connection handle, connection index, from, to, dates and times, standard price, line number and operator, number of free seats) are returned to each connection. By using parameter {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
 
@@ -71,9 +71,9 @@ Parameter          | type       | description
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | ConnectionArray | searched connections
+Parameter          | type                                | description
+-------------------|-------------------------------------|-------------
+result of function | [ConnectionArray](#connectionarray) | searched connections
 
 **Description:** Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
 
@@ -91,13 +91,13 @@ Parameter          | type                                    | description
 {guid}             | string                                  | ID partner (static, received from the service admin)
 {handleThere}      | int                                     | handle connection there
 {idx}              | int                                     | index connection there
-request body       | [SeatRequest](#connectionarray)         | required tariff (rate) and seats
+request body       | [SeatRequest](#seatrequest)             | required tariff (rate) and seats
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | BlockInfo       | information about booked seats and prices
+Parameter          | type                    | description
+-------------------|-------------------------|-------------
+result of function | [BlockInfo](#blockinfo) | information about booked seats and prices
 
 **Description:**
 Function executes blocking seats and determines prices, which is the first step towards purchasing the tickets. If {handle} connection BACK, then both ways ticket is booked. Blocking of seats is valid for 15 minutes; if in this time the booking is not finished by user (by operation POST Ticket), blocking is over/fails.
@@ -119,9 +119,9 @@ Parameter          | type        | description
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | BlockInfo       | information about booked seats and prices
+Parameter          | type                    | description
+-------------------|-------------------------|-------------
+result of function | [BlockInfo](#blockinfo) | information about booked seats and prices
 
 **Description:**
 Function releases seats blocked operation POST SeatBlock. Client should use this function in case he reserves seats and then decides not to finish the booking.
@@ -135,17 +135,17 @@ HTTP operation: POST
 
 #### Request
 
-Parameter          | type             | description
--------------------|------------------|-------------
-{guid}             | string           | ID partner (static, received from the service admin)
-{ticketHandle}     | string           | handle assigned seats (from result of operation POST SeatBlock)
-body of request    | AdditionalInfo[] | additional information about travellers
+Parameter          | type                                | description
+-------------------|-------------------------------------|-------------
+{guid}             | string                              | ID partner (static, received from the service admin)
+{ticketHandle}     | string                              | handle assigned seats (from result of operation POST SeatBlock)
+body of request    | [AdditionalInfo[]](#additionalinfo) | additional information about travellers
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | Ticket[]        | information about created tickets
+Parameter          | type               | description
+-------------------|--------------------|-------------
+result of function | [Ticket[]](#ticket)| information about created tickets
 
 
 **Description:**
@@ -169,9 +169,9 @@ Parameter          | type             | description
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | Ticket[]        | information about created tickets
+Parameter          | type               | description
+-------------------|--------------------|-------------
+result of function | [Ticket[]](#ticket)| information about created tickets
 
 **Description:**
 Function allows getting data about sold tickets after purchase (means after POST Ticket operation) (the same answer that POST Ticket returns – i.e. when partner doesn’t get any answer on POST Ticket query). This function is available until 15 minutes after purchase only.
@@ -193,9 +193,9 @@ Parameter          | type             | description
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | Ticket[]        | information about created tickets
+Parameter          | type               | description
+-------------------|--------------------|-------------
+result of function | [Ticket[]](#ticket)| information about created tickets
 
 **Description:**
 Function allows cancelling purchase (means successful operation POST Ticket) without cancellation fee. It is determined for solution of technical problems (i.e. in case the ticket wasn’t able to get downloaded or printed) and its usage can be done within 15 minutes after purchase only.
@@ -218,9 +218,9 @@ Parameter          | type             | description
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | RefundInfo      | information about refund
+Parameter          | type                         | description
+-------------------|------------------------------|-------------
+result of function | [RefundInfo[]](#refundinfo)  | information about refund
 
 **Description:**
 Functions starts refund operation of ticket – means it is blocking ticket and calculates price for refund. Subsequently, client has to decide in 15 minutes if he finishes the refund (by operation POST Refund2) or refuses (by operation DELETE Refund1) – in this case ticket remains valid. In case client doesn’t make any of these operations in 15 minutes, operation is cancelled and ticket remains valid.
@@ -238,7 +238,7 @@ HTTP operation: DELETE
 Parameter          | type             | description
 -------------------|------------------|-------------
 {guid}             | string           | ID partner (static, received from the service admin)
-{refundHandle}        | string        | handle of working returning operation (from result of POST Refund1)
+{refundHandle}     | string           | handle of working returning operation (from result of POST Refund1)
 
 #### Response
 
@@ -262,13 +262,13 @@ HTTP operation: POST
 Parameter          | type             | description
 -------------------|------------------|-------------
 {guid}             | string           | ID partner (static, received from the service admin)
-{refundHandle}        | string        | handle of working returning operation (from result of POST Refund1)
+{refundHandle}     | string           | handle of working returning operation (from result of POST Refund1)
 
 #### Response
 
-Parameter          | type            | description
--------------------|-----------------|-------------
-result of function | RefundInfo      | information about refund
+Parameter          | type                         | description
+-------------------|------------------------------|-------------
+result of function | [RefundInfo[]](#refundinfo)  | information about refund
 
 **Description:**
 Function finishes refund operation – means really makes the ticket invalid and releases that blocked seats. If it was refund of only one direction, there is information about the new (remaining) ticket in the result (RefundInfo).
