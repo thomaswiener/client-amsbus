@@ -59,6 +59,8 @@ class Client extends HttpClient implements ClientInterface
         $requestDateTime = new \DateTime();
         $response = $this->send($request);
 
+        #$a = json_encode($response->getBody()->__toString());
+
         $responseDateTime = new \DateTime();
 
         $this->setCommunicationLog(
