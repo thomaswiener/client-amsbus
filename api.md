@@ -276,7 +276,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 
 ### Data Types
 
-####ConnectionArray
+#### ConnectionArray
 
 ```php
 {
@@ -308,7 +308,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-####ConnectionInfo
+#### ConnectionInfo
 
 ```php
 {
@@ -366,7 +366,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-####SeatRequest
+#### SeatRequest
 
 ```php
 {
@@ -379,7 +379,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-####BlockInfo
+#### BlockInfo
 
 ```php
 {
@@ -400,7 +400,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 }
 ```
 
-#### AdditionalInfo (JSON)
+#### AdditionalInfo
 
 ```php
 [
@@ -411,7 +411,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 ]
 ```
 
-#### Ticket (JSON)
+#### Ticket
 
 ```php
 [
@@ -425,7 +425,7 @@ This function can be executed in 15 minutes after POST Refund1 only.
 ]
 ```
 
-#### RefundInfo (JSON)
+#### RefundInfo
 
 ```php
 {
