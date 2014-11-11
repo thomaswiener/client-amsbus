@@ -1,5 +1,8 @@
 ## API AMS
 
+This is the api documentation for the AMSBUS Api V1. Below you will find the endpoint methods and descriptions.
+At the bottom the used data types are being described.
+
 ### 1.1 GET MaskSearch
 
 ```php
@@ -270,3 +273,47 @@ result of function | RefundInfo      | information about refund
 **Description:**
 Function finishes refund operation – means really makes the ticket invalid and releases that blocked seats. If it was refund of only one direction, there is information about the new (remaining) ticket in the result (RefundInfo).
 This function can be executed in 15 minutes after POST Refund1 only.
+
+### Data Types
+
+Name            | Type
+----------------|-------------
+ConnectionArray | json
+SeatRequest     |
+BlockInfo       |
+AdditionalInfo  |
+Ticket          |
+RefundInfo      |
+
+```php
+ConnectionArray (JSON)
+
+{
+  "handle": 366069406,
+  "totalConnections": 10,
+  "connections": [
+    {
+      "line": "000193",
+      "conn": 4,
+      "fromTime": "2014-11-11T11:15:00",
+      "fromStop": "Brno [*CZ],,Bene\u0161ova t\u0159.hotel GRAND",
+      "stand": "9",
+      "toTime": "2014-11-11T13:45:00",
+      "toStop": "Praha [*CZ],,\u00daAN Florenc",
+      "km": 210,
+      "price": {
+        "eur": 854
+      },
+      "priceRet": {
+        "eur": 1628
+      },
+      "flags": 65801,
+      "startSale": "1970-01-01T00:00:00",
+      "carrier": "EUROLINES"
+    }...
+  ],
+  "mpz": "D",
+  "currency": 1
+}
+
+```
