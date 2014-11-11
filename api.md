@@ -6,10 +6,17 @@ URL: v1/MaskSearch/{guid}?mask={mask}
 HTTP operation: GET
 ```
 
+#### Request
+
 Parameter          | type       | description
 -------------------|------------|-------------
 {guid}             | string     | ID partner (static, received from the service admin)
 {mask}             | string     | name mask of searched objects
+
+#### Response
+
+Parameter          | type       | description
+-------------------|------------|-------------
 result of function | string[]   | name list of searched objects
 
 Description: Function enumerates the list of objects (destinations and stations) complies with the entered mask. Function returns maximally 30 objects.
