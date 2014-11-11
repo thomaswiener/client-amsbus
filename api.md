@@ -20,7 +20,7 @@ Parameter          | type       | description
 -------------------|------------|-------------
 result of function | string[]   | name list of searched objects
 
-Description: Function enumerates the list of objects (destinations and stations) complies with the entered mask. Function returns maximally 30 objects.
+**Description:** Function enumerates the list of objects (destinations and stations) complies with the entered mask. Function returns maximally 30 objects.
 
 ### 1.2 GET Connection
 
@@ -45,7 +45,7 @@ Parameter          | type            | description
 -------------------|-----------------|-------------
 result of function | ConnectionArray | searched connections
 
-Description: Function solves the entered masks of objects and if successful, searches connection. As connections here, are considered only direct connections; connections with stopovers can’t be searched. Function returns maximally 10 connections. Basic details (connection handle, connection index, from, to, dates and times, standard price, line number and operator, number of free seats) are returned to each connection. By using parameter {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
+**Description:** Function solves the entered masks of objects and if successful, searches connection. As connections here, are considered only direct connections; connections with stopovers can’t be searched. Function returns maximally 10 connections. Basic details (connection handle, connection index, from, to, dates and times, standard price, line number and operator, number of free seats) are returned to each connection. By using parameter {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
 
 ### 1.3 GET ConnectionBack
 
@@ -72,39 +72,80 @@ Parameter          | type            | description
 -------------------|-----------------|-------------
 result of function | ConnectionArray | searched connections
 
-Description: Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
+**Description:** Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
 
 ### 1.5 POST SeatBlock
+
+```php
 URL: v1/SeatBlock/{guid}/{handle}/{idx}
 HTTP operation: POST
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{handle}	int	handle connection
-{idx}	int	index connection
-request body	SeatRequest	required tariff (rate) and seats
-result of function	BlockInfo	information about booked seats and prices
-Description:
+```
+
+#### Request
+
+Parameter          | type        | description
+-------------------|-------------|-------------
+{guid}             | string      | ID partner (static, received from the service admin)
+{handleThere}      | int         | handle connection there
+{idx}              | int         | index connection there
+request body       | SeatRequest | equired tariff (rate) and seats
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | BlockInfo       | information about booked seats and prices
+
+**Description:**
 Function executes blocking seats and determines prices, which is the first step towards purchasing the tickets. If {handle} connection BACK, then both ways ticket is booked. Blocking of seats is valid for 15 minutes; if in this time the booking is not finished by user (by operation POST Ticket), blocking is over/fails.
 Result of function (object type BlockInfo) contains handle of assigned seats, which are used in following operations and basic information about ticket being created (seat numbers there and back, price, list of required additional user information – i.e. name, ID/passport number, phone).
 
 ### 1.6 DELETE SeatBlock
+
+```php
 URL: v1/SeatBlock/{guid}/{ticketHandle}
 HTTP operation: DELETE
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{ticketHandle}	string	handle assigned seats (from result of operation POST SeatBlock)
-Description:
+```
+
+#### Request
+
+Parameter          | type        | description
+-------------------|-------------|-------------
+{guid}             | string      | ID partner (static, received from the service admin)
+{ticketHandle}     | string      | handle assigned seats (from result of operation POST SeatBlock)
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | BlockInfo       | information about booked seats and prices
+
+**Description:**
 Function releases seats blocked operation POST SeatBlock. Client should use this function in case he reserves seats and then decides not to finish the booking.
 
 ### 1.7 POST Ticket
+
+```php
 URL: v1/Ticket/{guid}/{ticketHandle}
 HTTP operation: POST
-Parameter	type	description
-{guid}	string	ID partner (static, received from the service admin)
-{ticketHandle}	string	handle assigned seats (from result of operation POST SeatBlock)
-body of request	AdditionalInfo[]	additional information about travellers
-result of function	Ticket[]	information about created tickets
-Description:
+```
+
+#### Request
+
+Parameter          | type             | description
+-------------------|------------------|-------------
+{guid}             | string           | ID partner (static, received from the service admin)
+{ticketHandle}     | string           | handle assigned seats (from result of operation POST SeatBlock)
+body of request    | AdditionalInfo[] | additional information about travellers
+
+#### Response
+
+Parameter          | type            | description
+-------------------|-----------------|-------------
+result of function | Ticket[]        | information about created tickets
+
+
+**Description:**
 Finishing of ticket purchase and entering additional user details.
 If connection handle BACK was entered in BlockSeat function, purchase of both ways ticket is finished. Only the additional details which were requested for that particular connection, must be entered.
 Information about created tickets (as result of function) contains mainly URL, where PDF ticket can be downloaded. Furthermore transaction code and price of course too.
