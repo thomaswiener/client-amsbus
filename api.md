@@ -19,9 +19,9 @@ Parameter          | type       | description
 
 #### Response
 
-Parameter          | type       | description
--------------------|------------|-------------
-result of function | string[]   | name list of searched objects
+Parameter          | type                            | description
+-------------------|---------------------------------|-------------
+result of function | [string[]](#masksearchstring)   | name list of searched objects
 
 **Description:** Function enumerates the list of objects (destinations and stations) complies with the entered mask. Function returns maximally 30 objects.
 
@@ -275,6 +275,15 @@ Function finishes refund operation – means really makes the ticket invalid and
 This function can be executed in 15 minutes after POST Refund1 only.
 
 ### Data Types
+
+####MaskSearchString
+
+```php
+[
+  "Brno [*CZ],Kr\u00e1lovo Pole,n\u00e1dra\u017e\u00ed",
+  ...
+]
+```
 
 #### ConnectionArray
 
