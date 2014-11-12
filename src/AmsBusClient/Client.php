@@ -8,8 +8,10 @@
 namespace AmsBusClient;
 
 use AmsBusClient\Data\LogEntry;
-use Guzzle\Http\Client as HttpClient;
-use Guzzle\Http\Message\RequestInterface;
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Message\RequestInterface;
 
 class Client extends HttpClient implements ClientInterface
 {
@@ -19,53 +21,60 @@ class Client extends HttpClient implements ClientInterface
      * @var int Curl Timeout in milli seconds
      */
     protected $curlTimeout;
-
     protected $url;
-
     protected $version;
-
     protected $id;
+    protected $sslVerficationEnabled;
+
 
     public function __construct($parameters)
     {
         parent::__construct();
-        $this->setSslVerification(false, false, 1);
+        //$this->setSslVerification(false, false, 1);
 
         $this->url     = $parameters['url'];
         $this->version = $parameters['version'];
         $this->id      = $parameters['id'];
+        $this->sslVerficationEnabled = $parameters['sslVerifcationEnabled'];
     }
 
     /**
      * @param string $method
      * @param $endpoint
      * @param array $urlParams
-     * @param array $parameters
-     * @param null $body
+     * @param array $options
      *
      * @return array
      */
-    public function doRequest($method, $endpoint, array $urlParams, array $parameters, $body = null)
+    public function doRequest($method, $endpoint, $urlParams = array(), $options )
     {
-        $url     = $this->getEndpointUrl($endpoint, $method, $urlParams);
-        //$data    = $this->getEncodedData($dataArray);
-        $request = $this->createRequest($method, $url, null);
+        $options['verify'] = $this->sslVerficationEnabled;
 
-        $query = $request->getQuery();
-        foreach ($parameters as $field => $value) {
-            $query->add($field, $value);
-        }
+        $url     = $this->getEndpointUrl($endpoint, $method, $urlParams);
+        $request = $this->createRequest($method, $url, $options);
 
         $requestDateTime = new \DateTime();
-        $response = $this->send($request);
+        try {
+            $response = $this->send($request);
+        } catch (ClientException $ex) {
+            $this->printRequestResponseBodies($ex);
+        } catch (ServerException $ex) {
+            $this->printRequestResponseBodies($ex);
+        } catch (RequestException $ex) {
+            $this->printRequestResponseBodies($ex);
+        }
 
         #$a = json_encode($response->getBody()->__toString());
 
         $responseDateTime = new \DateTime();
 
+        $responseBody = '';
+        if ($response->getBody()) {
+            $responseBody = $response->getBody()->__toString();
+        }
         $this->setCommunicationLog(
-            $this->getLogString($method, json_encode($parameters)),
-            $this->getLogString($method, $response->getBody()->__toString()),
+            $this->getLogString($method, json_encode($options)),
+            $this->getLogString($method, $responseBody),
             $requestDateTime,
             $responseDateTime
         );
@@ -233,5 +242,43 @@ class Client extends HttpClient implements ClientInterface
         return $this->id;
     }
 
+    protected function printRequestResponseBodies($ex)
+    {
+        $request = $ex->getRequest();
+        $response = $ex->getResponse();
 
+        $req = $request->__toString();
+        $res = $response->__toString();
+
+        echo "---- Request ---- \n" . $req;
+        echo "\n";
+        echo "---- Response ---- \n" . $res;
+        die();
+    }
+/*
+POST /v1/seatblock/13FE2483-DDE9-48F1-B4D5-CE0ACB6057DF/366069407/0 HTTP/1.1
+Host: eshopcv.amsbus.cz:8443
+Content-Type: application/json
+User-Agent: Guzzle/4.2.3 curl/7.37.1 PHP/5.5.14
+Content-Length: 43
+
+{"tariffs":[{"tarCode":"P","numPlaces":1}]}
+
+
+
+
+HTTP/1.1 500 Internal Server Error
+Cache-Control: no-cache
+Pragma: no-cache
+Content-Type: application/json; charset=utf-8
+Expires: -1
+Server: Microsoft-IIS/7.5
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+Date: Wed, 12 Nov 2014 10:04:29 GMT
+Content-Length: 36
+
+{"Message":"An error has occurred."}
+
+*/
 }

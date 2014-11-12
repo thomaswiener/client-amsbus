@@ -8,10 +8,11 @@
 
 namespace AmsBusClient\Endpoint\Interfaces;
 
+use AmsBusClient\Data\Interfaces\SeatInterface as SeatDataInterface;
 
-interface SeatInterface
+interface SeatInterface extends BaseInterface
 {
-    CONST ENDPOINT_SEATBLOCK = 'SeatBlock';
+    CONST ENDPOINT_SEATBLOCK = 'seatblock';
 
     /**
      * Function executes blocking seats and determines prices, which is the first step towards purchasing the tickets.
@@ -23,12 +24,12 @@ interface SeatInterface
      *
      * HTTP: POST
      *
-     * @param $data
-     * @param $urlParams
+     * @param SeatDataInterface $data
+     * @param array             $urlParams
      *
      * @return mixed
      */
-    public function block($data, $urlParams);
+    public function block(SeatDataInterface $data, $urlParams);
 
     /**
      * Function releases seats blocked operation POST SeatBlock. Client should use this function in case he reserves

@@ -2,7 +2,9 @@
 
 namespace AmsBusClient\Endpoint;
 
+use AmsBusClient\Endpoint\Interfaces\BaseInterface;
 use AmsBusClient\Endpoint\Interfaces\SeatInterface;
+use AmsBusClient\Data\Interfaces\SeatInterface as SeatDataInterface;
 
 class Seat extends AbstractEndpoint implements SeatInterface
 {
@@ -21,9 +23,20 @@ class Seat extends AbstractEndpoint implements SeatInterface
      *
      * @return mixed
      */
-    public function block($data, $urlParams)
+    public function block(SeatDataInterface $data, $urlParams)
     {
-        // TODO: Implement block() method.
+        $method    = BaseInterface::POST;
+        $endpoint  = SeatInterface::ENDPOINT_SEATBLOCK;
+        $urlParams = $urlParams;
+
+        $headers   = $this->getContentTypeJson();
+        $headers['Accept'] = 'application/json';
+        $headers['Expect'] = '100-continue';
+
+        $options['headers'] = $headers;
+        $options['body']    = json_encode($data->asArray());
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -38,6 +51,12 @@ class Seat extends AbstractEndpoint implements SeatInterface
      */
     public function unblock($ticketHandle)
     {
-        // TODO: Implement unblock() method.
+        $method    = BaseInterface::DELETE;
+        $endpoint  = SeatInterface::ENDPOINT_SEATBLOCK;
+        $urlParams = [$ticketHandle];
+        $options   = [];
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
+
     }
 }

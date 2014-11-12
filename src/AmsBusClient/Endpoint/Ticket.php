@@ -2,6 +2,8 @@
 
 namespace AmsBusClient\Endpoint;
 
+use AmsBusClient\Endpoint\Interfaces\BaseInterface;
+use AmsBusClient\Data\Interfaces\AdditionalInfoInterface;
 use AmsBusClient\Endpoint\Interfaces\TicketInterface;
 
 class Ticket extends AbstractEndpoint implements TicketInterface
@@ -15,13 +17,19 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      *
      * HTTP: POST
      *
-     * @param string $ticketHandle
+     * @param AdditionalInfoInterface $data
+     * @param array $urlParams
      *
      * @return mixed
      */
-    public function create($ticketHandle)
+    public function create(AdditionalInfoInterface $data, $urlParams)
     {
-        // TODO: Implement create() method.
+        $method             = BaseInterface::POST;
+        $endpoint           = TicketInterface::ENDPOINT_TICKET;
+        $options['body']    = json_encode($data->asArray());
+        $options['headers'] = $this->getContentTypeJson();
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -32,13 +40,18 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      *
      * HTTP: GET
      *
-     * @param $ticketHandle
+     * @param string $ticketHandle
      *
      * @return mixed
      */
     public function get($ticketHandle)
     {
-        // TODO: Implement get() method.
+        $method    = BaseInterface::GET;
+        $endpoint  = TicketInterface::ENDPOINT_TICKET;
+        $urlParams = [$ticketHandle];
+        $options   = [];
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -49,13 +62,18 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      *
      * HTTP: DELETE
      *
-     * @param $ticketHandle
+     * @param string $ticketHandle
      *
      * @return mixed
      */
     public function cancel($ticketHandle)
     {
-        // TODO: Implement cancel() method.
+        $method    = BaseInterface::DELETE;
+        $endpoint  = TicketInterface::ENDPOINT_TICKET;
+        $urlParams = [$ticketHandle];
+        $options   = [];
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -75,7 +93,12 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      */
     public function refund($transCode, $operation)
     {
-        // TODO: Implement refund() method.
+        $method    = BaseInterface::POST;
+        $endpoint  = TicketInterface::ENDPOINT_REFUND;
+        $urlParams = [$transCode, $operation];
+        $options   = [];
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -91,7 +114,12 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      */
     public function refundCancel($refundHandle)
     {
-        // TODO: Implement refundCancel() method.
+        $method    = BaseInterface::DELETE;
+        $endpoint  = TicketInterface::ENDPOINT_REFUND;
+        $urlParams = [$refundHandle];
+        $options   = [];
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -107,6 +135,11 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      */
     public function refundConfirm($refundHandle)
     {
-        // TODO: Implement refundConfirm() method.
+        $method    = BaseInterface::POST;
+        $endpoint  = TicketInterface::ENDPOINT_REFUND_CONFIRM;
+        $urlParams = [$refundHandle];
+        $options   = [];
+
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 }

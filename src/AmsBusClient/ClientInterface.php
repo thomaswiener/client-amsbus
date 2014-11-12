@@ -13,7 +13,7 @@
 
 namespace AmsBusClient;
 
-use Guzzle\Http\ClientInterface as GuzzleClientInterface;
+use GuzzleHttp\ClientInterface as GuzzleClientInterface;
 
 /**
  * Interface ClientInterface
@@ -33,10 +33,17 @@ interface ClientInterface extends GuzzleClientInterface
      * @param $endpoint
      * @param array $urlParams
      * @param array $parameters
+     * @param null $body
+     * @param null $headers
      *
      * @return mixed
      */
-    public function doRequest($method, $endpoint, array $urlParams, array $parameters);
+    public function doRequest(
+        $method,
+        $endpoint,
+        $urlParams = array(),
+        $options
+    );
 
 //    /**
 //     * Setup Request

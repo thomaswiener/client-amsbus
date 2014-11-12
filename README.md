@@ -1,23 +1,29 @@
 ## AmsBus Client [![Build Status](https://travis-ci.org/thomaswiener/client-amsbus.svg?branch=master)](https://travis-ci.org/thomaswiener/client-amsbus)
 
+### General
+
+#### About
+
 This package is a php client implementation for the AmsBus (RO) Webservice (SOAP).
 It is based on the webservice description found here: INSERT DOC HERE
 
 Below you will find example calls for the different endpoints.
 
-### Installation
+#### Installation
 
 Install via composer.
 
-Add _"thomaswiener/client-amsbus": "dev-master"_ to your composer.json and update vendors.
+Add **"thomaswiener/client-amsbus": "dev-master"** to your composer.json and update vendors.
 
-Packagist: https://packagist.org/packages/thomaswiener/client-amsbus
+#### Source
 
-Github: https://github.com/thomaswiener/client-amsbus
+Provider  | Url
+----------| -----------------------------------------------------------
+Packagist | https://packagist.org/packages/thomaswiener/client-amsbus
+Github    | https://github.com/thomaswiener/client-amsbus
 
 
 ### Setup
-
 
 ```php
 $loader = require_once __DIR__ . "/./vendor/autoload.php";
@@ -72,8 +78,47 @@ $response = $connectionService->getInfo($urlParams);
 ```php
 $response = $seatService->block(array(), $urlParams);
 
-```#### Block
+```
+
+#### Unblock
 
 ```php
 $response = $seatService->unblock(array(), $urlParams);
 ```
+
+### Ticket
+
+#### Create
+
+```php
+$urlParams = [$ticketHandle]; #from response
+
+$additionalInfo = new \AmsBusClient\Data\AdditionalInfo();
+foreach ($tickets as $index => $ticket) {
+    $passenger = new \AmsBusClient\Data\Passenger();
+    $passenger->setName('John Doe');
+    $passenger->setTicketIdx($index);   //the ticket index in the array (probably)
+    $additionalInfo->addPassenger($passenger);
+}
+
+$response = $ticketService->create($additionalInfo, $urlParams);
+$ticket = $response->getData();
+```
+
+#### Get
+
+```php
+$response = $ticketService->get($ticketHandle);
+```
+
+#### Cancel
+
+```php
+$response = $ticketService->cancel($ticketHandle);
+```
+
+#### Refund
+
+#### RefundCancel
+
+#### RefundConfirm

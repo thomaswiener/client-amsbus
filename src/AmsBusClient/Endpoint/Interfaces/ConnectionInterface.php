@@ -4,7 +4,7 @@ namespace AmsBusClient\Endpoint\Interfaces;
 
 use AmsBusClient\Data\Interfaces\ConnectionInterface as ConnectionDataInterface;
 
-interface ConnectionInterface
+interface ConnectionInterface extends BaseInterface
 {
     CONST ENDPOINT_CONNECTION      = 'Connection';
     CONST ENDPOINT_CONNECTION_BACK = 'ConnectionBack';

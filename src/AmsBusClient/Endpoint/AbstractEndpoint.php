@@ -14,8 +14,8 @@
 namespace AmsBusClient\Endpoint;
 
 use AmsBusClient\Data\Response;
-use Guzzle\Http\ClientInterface;
-use Guzzle\Http\Message\Response as GuzzleResponse;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Message\Response as GuzzleResponse;
 use stdClass;
 
 /**
@@ -29,6 +29,7 @@ use stdClass;
  */
 abstract class AbstractEndpoint
 {
+
     /**
      * @var \Guzzle\Http\ClientInterface Client
      */
@@ -49,13 +50,18 @@ abstract class AbstractEndpoint
      *
      * @param $method
      * @param $endpoint
-     * @param $data
+     * @param array $urlParams
+     * @param array $options
      *
      * @return GuzzleResponse|Response
      */
-    protected function doRequest($method, $endpoint, array $urlParams, array $data)
-    {
-        $response = $this->client->doRequest($method, $endpoint, $urlParams, $data);
+    protected function doRequest(
+        $method,
+        $endpoint,
+        array $urlParams,
+        array $options
+    ) {
+        $response = $this->client->doRequest($method, $endpoint, $urlParams, $options);
 
         return $this->getResponse($response);
     }
@@ -73,12 +79,19 @@ abstract class AbstractEndpoint
         $response->setSuccess(false);
 
         if ($result instanceof GuzzleResponse) {
-            $body = $result->getBody()->__toString();
+            $body = '';
+            if ($result->getBody()) {
+                $body = $result->getBody()->__toString();
+            }
+
+            if ($result->getStatusCode() == 200) {
+                $response->setSuccess(true);
+            }
+
             $json = json_decode($body);
 
             if ($json) {
                 $response->setData($json);
-                $response->setSuccess(true);
             } else {
                 $response->setData($body);
             }
@@ -158,5 +171,9 @@ abstract class AbstractEndpoint
         return sprintf('%sResult', $method);
     }
 
+    protected function getContentTypeJson()
+    {
+        return ['Content-Type' => 'application/json; charset=utf-8'];
+    }
 
 } 

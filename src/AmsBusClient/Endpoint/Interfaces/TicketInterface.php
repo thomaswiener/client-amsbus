@@ -8,11 +8,17 @@
 
 namespace AmsBusClient\Endpoint\Interfaces;
 
-interface TicketInterface
+use AmsBusClient\Data\Interfaces\AdditionalInfoInterface;
+
+interface TicketInterface extends BaseInterface
 {
     CONST ENDPOINT_TICKET         = 'Ticket';
     CONST ENDPOINT_REFUND         = 'Refund1';
     CONST ENDPOINT_REFUND_CONFIRM = 'Refund2';
+
+    CONST OPERATION_THERE = 0;
+    CONST OPERATION_BACK  = 1;
+    CONST OPERATION_BOTH  = 2;
 
     /**
      * Finishing of ticket purchase and entering additional user details.
@@ -23,11 +29,12 @@ interface TicketInterface
      *
      * HTTP: POST
      *
-     * @param string $ticketHandle
+     * @param AdditionalInfoInterface $data
+     * @param array $urlParams
      *
      * @return mixed
      */
-    public function create($ticketHandle);
+    public function create(AdditionalInfoInterface $data, $urlParams);
 
     /**
      * Function allows getting data about sold tickets after purchase (means after POST Ticket operation)
@@ -37,7 +44,7 @@ interface TicketInterface
      *
      * HTTP: GET
      *
-     * @param $ticketHandle
+     * @param string $ticketHandle
      *
      * @return mixed
      */
@@ -51,7 +58,7 @@ interface TicketInterface
      *
      * HTTP: DELETE
      *
-     * @param $ticketHandle
+     * @param string $ticketHandle
      *
      * @return mixed
      */

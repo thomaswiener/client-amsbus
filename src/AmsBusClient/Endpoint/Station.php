@@ -2,8 +2,8 @@
 
 namespace AmsBusClient\Endpoint;
 
+use AmsBusClient\Endpoint\Interfaces\BaseInterface;
 use AmsBusClient\Endpoint\Interfaces\StationInterface;
-use Guzzle\Http\Message\RequestInterface;
 
 class Station extends AbstractEndpoint implements StationInterface
 {
@@ -19,12 +19,12 @@ class Station extends AbstractEndpoint implements StationInterface
      */
     public function search($mask)
     {
-        $method    = RequestInterface::GET;
-        $endpoint  = StationInterface::ENDPOINT_MASK_SEARCH;
-        $urlParams = [];
-        $data      = ['mask' => $mask];
+        $method           = BaseInterface::GET;
+        $endpoint         = StationInterface::ENDPOINT_MASK_SEARCH;
+        $urlParams        = [];
+        $options['query'] = ['mask' => $mask];
 
-        return $this->doRequest($method, $endpoint, $urlParams, $data);
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
 
     }
 }

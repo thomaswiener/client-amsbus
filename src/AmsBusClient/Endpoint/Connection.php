@@ -2,9 +2,9 @@
 
 namespace AmsBusClient\Endpoint;
 
-use Guzzle\Http\Message\RequestInterface;
-use AmsBusClient\Data\Interfaces\ConnectionInterface as ConnectionDataInterface;
+use AmsBusClient\Endpoint\Interfaces\BaseInterface;
 use AmsBusClient\Endpoint\Interfaces\ConnectionInterface;
+use AmsBusClient\Data\Interfaces\ConnectionInterface as ConnectionDataInterface;
 
 class Connection extends AbstractEndpoint implements ConnectionInterface
 {
@@ -24,12 +24,13 @@ class Connection extends AbstractEndpoint implements ConnectionInterface
      */
     public function search(ConnectionDataInterface $connection)
     {
-        $method    = RequestInterface::GET;
+        $method    = BaseInterface::GET;
         $endpoint  = ConnectionInterface::ENDPOINT_CONNECTION;
         $urlParams = [];
-        $data      = $connection->asArray();
+        #$data      = $connection->asArray();
+        $options['query'] = $connection->asArray();
 
-        return $this->doRequest($method, $endpoint, $urlParams, $data);
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 
     /**
@@ -60,11 +61,11 @@ class Connection extends AbstractEndpoint implements ConnectionInterface
      */
     public function getInfo($urlParams)
     {
-        $method    = RequestInterface::GET;
+        $method    = BaseInterface::GET;
         $endpoint  = ConnectionInterface::ENDPOINT_CONNECTION_INFO;
         $urlParams = $urlParams;
-        $data      = [];
+        $options   = [];
 
-        return $this->doRequest($method, $endpoint, $urlParams, $data);
+        return $this->doRequest($method, $endpoint, $urlParams, $options);
     }
 }

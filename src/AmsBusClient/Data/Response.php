@@ -34,11 +34,6 @@ class Response
     protected $data;
 
     /**
-     * @var
-     */
-    protected $sessionId;
-
-    /**
      * Is response successful
      *
      * @return mixed
@@ -84,30 +79,4 @@ class Response
 
         return $this;
     }
-
-    /**
-     * Get session id
-     *
-     * @return mixed
-     */
-    public function getSessionId()
-    {
-        return $this->sessionId;
-    }
-
-    /**
-     * Set session id
-     *
-     * @param mixed $sessionId
-     *
-     * @return $this
-     */
-    public function setSessionId($sessionId)
-    {
-        $this->sessionId = $sessionId;
-
-        return $this;
-    }
-
-
-} 
+}

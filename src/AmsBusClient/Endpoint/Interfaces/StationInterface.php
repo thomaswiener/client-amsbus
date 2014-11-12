@@ -2,7 +2,7 @@
 
 namespace AmsBusClient\Endpoint\Interfaces;
 
-interface StationInterface
+interface StationInterface extends BaseInterface
 {
     CONST ENDPOINT_MASK_SEARCH = 'MaskSearch';
 
