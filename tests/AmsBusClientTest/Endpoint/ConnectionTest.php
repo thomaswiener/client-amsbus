@@ -10,6 +10,7 @@ namespace AmsBusClientTest\Endpoint;
 
 use AmsBusClient\Endpoint\Connection;
 use GuzzleHttp\Message\Response;
+use GuzzleHttp\Stream\Stream;
 
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
@@ -23,9 +24,10 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->config = array(
-            'url'     => 'https://eshopcv.amsbus.cz:8443/',
-            'id'      => 'someid',
-            'version' => 'v1'
+            'url'                   => 'https://eshopcv.amsbus.cz:8443/',
+            'id'                    => 'someid',
+            'version'               => 'v1',
+            'sslVerifcationEnabled' => false
         );
     }
 
@@ -146,7 +148,9 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
 
     protected function getResponseObject($data)
     {
-        return new Response(200, null, json_decode($data));
+        $stream = Stream::factory(json_encode($data));
+
+        return new Response(200, array(), $stream);
     }
 
 }
