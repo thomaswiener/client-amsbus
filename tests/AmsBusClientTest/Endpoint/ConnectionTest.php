@@ -31,11 +31,11 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testConncectionSearch()
+    public function testConnectionSearch()
     {
         $this->client = $this->getMockedClient(
             $this->returnValue(
-                $this->getResponseObjectConnectionSearch()
+                $this->getResponseObjectConnectionSearchSuccess()
             )
         );
         $connectionService = new Connection($this->client);
@@ -51,67 +51,25 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($response->isSuccessful());
     }
 
-//    public function testLoginFailure()
-//    {
-//        $this->client = $this->getMockedClientLogin(
-//            $this->returnValue(
-//                $this->getResponseObjectLoginFailure()
-//            )
-//        );
-//        $securityService = new Security($this->client);
-//
-//        $user = new User();
-//        $user
-//            ->setUsername($this->options['username'])
-//            ->setPassword($this->options['password'])
-//            ->setLanguageCode('en');
-//
-//        $response = $securityService->login($user);
-//
-//        $this->assertFalse($response->isSuccessful());
-//    }
+    public function testConnectionFailure()
+    {
+        $this->client = $this->getMockedClient(
+            $this->returnValue(
+                $this->getResponseObjectConnectionSearchError()
+            )
+        );
+        $connectionService = new Connection($this->client);
 
-//    public function testIsLoggedInSuccess()
-//    {
-//        $this->client = $this->getMockedClientLogin(
-//            $this->returnValue(
-//                $this->getResponseObjectIsLoggedInSuccess()
-//            )
-//        );
-//        $securityService = new Security($this->client);
-//
-//        $user = new User();
-//        $user
-//            ->setUsername($this->options['username'])
-//            ->setPassword($this->options['password'])
-//            ->setLanguageCode('en');
-//
-//        $response = $securityService->login($user);
-//
-//        $this->assertFalse($response->isSuccessful());
-//    }
-//
-//    public function testIsLoggedInFailure()
-//    {
-//        $this->client = $this->getMockedClientLogin(
-//            $this->returnValue(
-//                $this->getResponseObjectIsLoggedInFailure()
-//            )
-//        );
-//        $securityService = new Security($this->client);
-//
-//        $user = new User();
-//        $user
-//            ->setUsername($this->options['username'])
-//            ->setPassword($this->options['password'])
-//            ->setLanguageCode('en');
-//
-//        $response = $securityService->login($user);
-//
-//        $this->assertFalse($response->isSuccessful());
-//    }
+        $connectionData = new \AmsBusClient\Data\Connection();
+        $connectionData
+            ->setFrom("A")
+            ->setTo("B")
+            ->setTripDate(new \DateTime());
 
+        $response = $connectionService->search($connectionData);
 
+        $this->assertTrue($response->isSuccessful());
+    }
 
     #########
     # Helper
@@ -141,9 +99,14 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
             ->getMock();
     }
 
-    protected function getResponseObjectConnectionSearch()
+    protected function getResponseObjectConnectionSearchSuccess()
     {
         return $this->getResponseObject('"{\"handle\":366069397,\"totalConnections\":2,\"connections\":[{\"line\":\"000088\",\"conn\":3,\"fromTime\":\"2014-11-11T09:00:00\",\"fromStop\":\"Praha [*CZ],,\u00daAN Florenc\",\"stand\":\"4\",\"toTime\":\"2014-11-11T13:30:00\",\"toStop\":\"Berlin,,ZOB am Funkturm\",\"km\":363,\"price\":{\"eur\":3296},\"priceRet\":{\"eur\":5957},\"flags\":65801,\"startSale\":\"1970-01-01T00:00:00\",\"carrier\":\"EUROLINES\"},{\"line\":\"000088\",\"conn\":25,\"fromTime\":\"2014-11-11T18:00:00\",\"fromStop\":\"Praha [*CZ],,\u00daAN Florenc\",\"stand\":\"6-7\",\"toTime\":\"2014-11-11T22:15:00\",\"toStop\":\"Berlin,,ZOB am Funkturm\",\"km\":363,\"price\":{\"eur\":3296},\"priceRet\":{\"eur\":5957},\"flags\":65545,\"startSale\":\"1970-01-01T00:00:00\",\"carrier\":\"EUROLINES\"}],\"mpz\":\"D\",\"currency\":1}"');
+    }
+
+    protected function getResponseObjectConnectionSearchError()
+    {
+        return $this->getResponseObject('');
     }
 
     protected function getResponseObject($data)
