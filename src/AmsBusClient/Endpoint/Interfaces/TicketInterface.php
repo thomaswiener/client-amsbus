@@ -12,13 +12,13 @@ use AmsBusClient\Data\Interfaces\AdditionalInfoInterface;
 
 interface TicketInterface extends BaseInterface
 {
-    CONST ENDPOINT_TICKET         = 'Ticket';
-    CONST ENDPOINT_REFUND         = 'Refund1';
-    CONST ENDPOINT_REFUND_CONFIRM = 'Refund2';
+    const ENDPOINT_TICKET         = 'Ticket';
+    const ENDPOINT_REFUND         = 'Refund1';
+    const ENDPOINT_REFUND_CONFIRM = 'Refund2';
 
-    CONST OPERATION_THERE = 0;
-    CONST OPERATION_BACK  = 1;
-    CONST OPERATION_BOTH  = 2;
+    const OPERATION_THERE = 0;
+    const OPERATION_BACK  = 1;
+    const OPERATION_BOTH  = 2;
 
     /**
      * Finishing of ticket purchase and entering additional user details.
@@ -40,7 +40,8 @@ interface TicketInterface extends BaseInterface
      * Function allows getting data about sold tickets after purchase (means after POST Ticket operation)
      * (the same answer that POST Ticket returns – i.e. when partner doesn’t get any answer on POST Ticket query).
      * This function is available until 15 minutes after purchase only.
-     * In case operation POST Ticket wasn’t finished (or 15 minutes after execution was expired) function returns HTTP status 404 – NotFound.
+     * In case operation POST Ticket wasn’t finished (or 15 minutes after execution was expired) function returns
+     * HTTP status 404 – NotFound.
      *
      * HTTP: GET
      *

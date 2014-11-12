@@ -4,7 +4,7 @@ namespace AmsBusClient\Endpoint\Interfaces;
 
 interface StationInterface extends BaseInterface
 {
-    CONST ENDPOINT_MASK_SEARCH = 'MaskSearch';
+    const ENDPOINT_MASK_SEARCH = 'MaskSearch';
 
     /**
      * Function enumerates the list of objects (destinations and stations) complies with the entered mask.
@@ -17,4 +17,4 @@ interface StationInterface extends BaseInterface
      * @return mixed
      */
     public function search($mask);
-} 
+}

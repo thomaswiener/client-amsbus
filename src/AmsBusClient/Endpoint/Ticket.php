@@ -36,7 +36,8 @@ class Ticket extends AbstractEndpoint implements TicketInterface
      * Function allows getting data about sold tickets after purchase (means after POST Ticket operation)
      * (the same answer that POST Ticket returns – i.e. when partner doesn’t get any answer on POST Ticket query).
      * This function is available until 15 minutes after purchase only.
-     * In case operation POST Ticket wasn’t finished (or 15 minutes after execution was expired) function returns HTTP status 404 – NotFound.
+     * In case operation POST Ticket wasn’t finished (or 15 minutes after execution was expired) function returns
+     * HTTP status 404 – NotFound.
      *
      * HTTP: GET
      *

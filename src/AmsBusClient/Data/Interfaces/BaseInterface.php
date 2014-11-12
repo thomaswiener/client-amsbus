@@ -10,4 +10,4 @@ interface BaseInterface
      * @return mixed
      */
     public function asArray();
-} 
+}

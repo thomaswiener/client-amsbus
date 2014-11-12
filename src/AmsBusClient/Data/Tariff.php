@@ -53,6 +53,4 @@ class Tariff implements TariffInterface
     {
         $this->tarCode = $tarCode;
     }
-
-
 }
