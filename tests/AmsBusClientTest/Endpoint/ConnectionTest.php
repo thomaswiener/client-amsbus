@@ -9,7 +9,7 @@
 namespace AmsBusClientTest\Endpoint;
 
 use AmsBusClient\Endpoint\Connection;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Message\Response;
 
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
