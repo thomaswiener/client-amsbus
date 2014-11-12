@@ -30,11 +30,10 @@ class Client extends HttpClient implements ClientInterface
     public function __construct($parameters)
     {
         parent::__construct();
-        //$this->setSslVerification(false, false, 1);
 
-        $this->url     = $parameters['url'];
-        $this->version = $parameters['version'];
-        $this->id      = $parameters['id'];
+        $this->url                   = $parameters['url'];
+        $this->version               = $parameters['version'];
+        $this->id                    = $parameters['id'];
         $this->sslVerficationEnabled = $parameters['sslVerifcationEnabled'];
     }
 
@@ -246,43 +245,4 @@ class Client extends HttpClient implements ClientInterface
         return $this->id;
     }
 
-    protected function printRequestResponseBodies($ex)
-    {
-        $request = $ex->getRequest();
-        $response = $ex->getResponse();
-
-        $req = $request->__toString();
-        $res = $response->__toString();
-
-        echo "---- Request ---- \n" . $req;
-        echo "\n";
-        echo "---- Response ---- \n" . $res;
-        die();
-    }
-/*
-POST /v1/seatblock/13FE2483-DDE9-48F1-B4D5-CE0ACB6057DF/366069407/0 HTTP/1.1
-Host: eshopcv.amsbus.cz:8443
-Content-Type: application/json
-User-Agent: Guzzle/4.2.3 curl/7.37.1 PHP/5.5.14
-Content-Length: 43
-
-{"tariffs":[{"tarCode":"P","numPlaces":1}]}
-
-
-
-
-HTTP/1.1 500 Internal Server Error
-Cache-Control: no-cache
-Pragma: no-cache
-Content-Type: application/json; charset=utf-8
-Expires: -1
-Server: Microsoft-IIS/7.5
-X-AspNet-Version: 4.0.30319
-X-Powered-By: ASP.NET
-Date: Wed, 12 Nov 2014 10:04:29 GMT
-Content-Length: 36
-
-{"Message":"An error has occurred."}
-
-*/
 }
