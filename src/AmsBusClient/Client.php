@@ -46,7 +46,7 @@ class Client extends HttpClient implements ClientInterface
      *
      * @return array
      */
-    public function doRequest($method, $endpoint, $urlParams = array(), $options )
+    public function doRequest($method, $endpoint, $urlParams = array(), $options = array())
     {
         $options['verify'] = $this->sslVerficationEnabled;
 
@@ -54,14 +54,18 @@ class Client extends HttpClient implements ClientInterface
         $request = $this->createRequest($method, $url, $options);
 
         $requestDateTime = new \DateTime();
+
         try {
             $response = $this->send($request);
         } catch (ClientException $ex) {
-            $this->printRequestResponseBodies($ex);
+            #$this->printRequestResponseBodies($ex);
+            $response = $ex->getResponse();
         } catch (ServerException $ex) {
-            $this->printRequestResponseBodies($ex);
+            #$this->printRequestResponseBodies($ex);
+            $response = $ex->getResponse();
         } catch (RequestException $ex) {
-            $this->printRequestResponseBodies($ex);
+            #$this->printRequestResponseBodies($ex);
+            $response = $ex->getResponse();
         }
 
         #$a = json_encode($response->getBody()->__toString());

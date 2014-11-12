@@ -32,29 +32,21 @@ interface ClientInterface extends GuzzleClientInterface
      * @param string $method Method of API Endpoint
      * @param $endpoint
      * @param array $urlParams
-     * @param array $parameters
-     * @param null $body
-     * @param null $headers
+     * @param array $options
      *
      * @return mixed
      */
-    public function doRequest(
-        $method,
-        $endpoint,
-        $urlParams = array(),
-        $options
-    );
+    public function doRequest($method, $endpoint, $urlParams = array(), $options = array());
 
-//    /**
-//     * Setup Request
-//     *
-//     * @param string $method API Method
-//     * @param array  $params Parameters
-//     *
-//     * @return \Guzzle\Http\Message\Request
-//     */
-//    public function setup($method, $params);
-
+    /**
+     * Set Communication Log
+     *
+     * @param $request
+     * @param $response
+     * @param \DateTime $requestDateTime
+     * @param \DateTime $responseDateTime
+     * @return mixed
+     */
     public function setCommunicationLog(
         $request,
         $response,
