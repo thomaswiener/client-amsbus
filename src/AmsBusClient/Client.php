@@ -117,7 +117,8 @@ class Client extends HttpClient implements ClientInterface
     {
         array_unshift($urlParams , $this->getId());
 
-        return sprintf('%s%s/%s/%s',
+        return sprintf(
+            '%s%s/%s/%s',
             $this->url,
             $this->version,
             $endpoint,
@@ -244,5 +245,4 @@ class Client extends HttpClient implements ClientInterface
     {
         return $this->id;
     }
-
 }
