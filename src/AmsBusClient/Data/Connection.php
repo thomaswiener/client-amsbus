@@ -33,7 +33,7 @@ class Connection implements ConnectionInterface
         $data = [
             'from'        => $this->getFrom(),
             'to'          => $this->getTo(),
-            'tripDate'    => $this->getTripDate()->format('c'),
+            'dateTime'    => $this->getTripDate()->format('c'),
 
         ];
 
