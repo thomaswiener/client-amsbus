@@ -115,7 +115,7 @@ class Client extends HttpClient implements ClientInterface
      */
     protected function getEndpointUrl($endpoint, $method, array $urlParams)
     {
-        array_unshift($urlParams , $this->getId());
+        array_unshift($urlParams, $this->getId());
 
         return sprintf(
             '%s%s/%s/%s',

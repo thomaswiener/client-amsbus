@@ -119,6 +119,4 @@ class Connection implements ConnectionInterface
 
         return $this;
     }
-
-
 }

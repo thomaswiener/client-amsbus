@@ -53,6 +53,4 @@ class AdditionalInfo implements AdditionalInfoInterface
 
         return $this;
     }
-
-
 }

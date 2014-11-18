@@ -14,7 +14,8 @@ class Connection extends AbstractEndpoint implements ConnectionInterface
      * connections. Basic details (connection handle, connection index, from, to, dates and times, standard price,
      * line number and operator, number of free seats) are returned to each connection. By using parameter
      * {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed
-     * e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
+     * e-ticket); entering these requirements is usually pointless because they follow from operator’s
+     * characteristics.
      *
      * HTTP: GET|POST
      *

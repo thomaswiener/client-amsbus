@@ -53,6 +53,4 @@ class Passenger implements PassengerInterface
     {
         $this->ticketIdx = $ticketIdx;
     }
-
-
 }

@@ -12,7 +12,7 @@ use AmsBusClient\Data\Interfaces\SeatInterface as SeatDataInterface;
 
 interface SeatInterface extends BaseInterface
 {
-    CONST ENDPOINT_SEATBLOCK = 'seatblock';
+    const ENDPOINT_SEATBLOCK = 'seatblock';
 
     /**
      * Function executes blocking seats and determines prices, which is the first step towards purchasing the tickets.
@@ -42,4 +42,4 @@ interface SeatInterface extends BaseInterface
      * @return mixed
      */
     public function unblock($ticketHandle);
-} 
+}

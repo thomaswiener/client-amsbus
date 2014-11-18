@@ -6,9 +6,9 @@ use AmsBusClient\Data\Interfaces\ConnectionInterface as ConnectionDataInterface;
 
 interface ConnectionInterface extends BaseInterface
 {
-    CONST ENDPOINT_CONNECTION      = 'Connection';
-    CONST ENDPOINT_CONNECTION_BACK = 'ConnectionBack';
-    CONST ENDPOINT_CONNECTION_INFO = 'ConnectionInfo';
+    const ENDPOINT_CONNECTION      = 'Connection';
+    const ENDPOINT_CONNECTION_BACK = 'ConnectionBack';
+    const ENDPOINT_CONNECTION_INFO = 'ConnectionInfo';
 
     /**
      * Function solves the entered masks of objects and if successful, searches connection. As connections here, are
@@ -16,7 +16,8 @@ interface ConnectionInterface extends BaseInterface
      * connections. Basic details (connection handle, connection index, from, to, dates and times, standard price,
      * line number and operator, number of free seats) are returned to each connection. By using parameter
      * {searchFlags} can be requirements on the connection (i.e. search only connections, that don’t require printed
-     * e-ticket); entering these requirements is usually pointless because they follow from operator’s characteristics.
+     * e-ticket); entering these requirements is usually pointless because they follow from operator’s
+     * characteristics.
      *
      * HTTP: GET|POST
      *
@@ -50,4 +51,4 @@ interface ConnectionInterface extends BaseInterface
      * @return mixed
      */
     public function getInfo($urlParams);
-} 
+}
