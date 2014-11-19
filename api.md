@@ -77,6 +77,29 @@ result of function | [ConnectionArray](#connectionarray) | searched connections
 
 **Description:** Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
 
+### 1.4 GET ConnectionInfo
+
+```php
+URL: v1/ConnectionInfo/{guid}/{handle}/{idx}
+HTTP operation: GET
+```
+
+#### Request
+
+Parameter          | type       | description
+-------------------|------------|-------------
+{guid}             | string     | ID partner (static, received from the service admin)
+{handle}           | int        | handle connection
+{idx}              | int        | index connection
+
+#### Response
+
+Parameter          | type                                | description
+-------------------|-------------------------------------|-------------
+result of function | ConnectionInfo                      | Connection details
+
+**Description:** Function returns detail information about one concrete connection, means list of tariffs, prices and operators on that connection including seat map of bus, else information that reservation is not working with particular seats.
+
 ### 1.5 POST SeatBlock
 
 ```php
