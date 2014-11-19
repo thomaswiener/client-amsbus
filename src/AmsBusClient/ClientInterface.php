@@ -60,4 +60,11 @@ interface ClientInterface extends GuzzleClientInterface
      * @return mixed
      */
     public function getCommunicationLog();
+
+    /**
+     * Get last request
+     *
+     * @return mixed
+     */
+    public function getLastRequest();
 }

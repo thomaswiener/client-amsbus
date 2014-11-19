@@ -245,4 +245,18 @@ class Client extends HttpClient implements ClientInterface
     {
         return $this->id;
     }
+
+    /**
+     * Get last request
+     *
+     * @return mixed
+     */
+    public function getLastRequest()
+    {
+        if ($this->logEntry) {
+            return $this->logEntry->getFormattedLogMessage();
+        }
+
+        return '';
+    }
 }
