@@ -21,6 +21,10 @@ class Connection implements ConnectionInterface
     /**
      * @var int
      */
+    protected $maxResult;
+   /**
+     * @var int
+     */
     protected $searchFlags;
 
     /**
@@ -34,6 +38,7 @@ class Connection implements ConnectionInterface
             'from'        => $this->getFrom(),
             'to'          => $this->getTo(),
             'dateTime'    => $this->getTripDate()->format('c'),
+            'numConn'     => $this->getMaxResult()
 
         ];
 
@@ -116,6 +121,24 @@ class Connection implements ConnectionInterface
     public function setTripDate(\DateTime $tripDate)
     {
         $this->tripDate = $tripDate;
+
+        return $this;
+    }
+    /**
+     * @return int
+     */
+    public function getMaxResult()
+    {
+        return $this->maxResult;
+    }
+
+    /**
+     * @param int $maxResult
+     * @return $this
+     */
+    public function setMaxResult($maxResult)
+    {
+        $this->maxResult = $maxResult;
 
         return $this;
     }
