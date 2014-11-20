@@ -1,5 +1,5 @@
 {
-    "name": "thomaswiener/client-amsbus",
+    "name": "rocketbus/booking-client-amsbus",
     "description": "amsbus booking client",
     "license": "MIT",
     "minimum-stability": "stable",
