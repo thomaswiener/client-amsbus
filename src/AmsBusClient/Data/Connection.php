@@ -26,7 +26,7 @@ class Connection implements ConnectionInterface
     /**
      * @var int
      */
-    protected $maxResults;
+    protected $maxResult;
 
     /**
      * Return parameters as array
@@ -46,8 +46,8 @@ class Connection implements ConnectionInterface
             $data['searchFlags'] = $this->getSearchFlags();
         }
 
-        if ($this->getMaxResults()) {
-            $data['numConns'] = $this->getMaxResults();
+        if ($this->getMaxResult()) {
+            $data['numConns'] = $this->getMaxResult();
         }
 
         return $data;
@@ -132,18 +132,18 @@ class Connection implements ConnectionInterface
     /**
      * @return int
      */
-    public function getMaxResults()
+    public function getMaxResult()
     {
-        return $this->maxResults;
+        return $this->maxResult;
     }
 
     /**
-     * @param int $maxResults
+     * @param int $maxResult
      * @return $this
      */
-    public function setMaxResults($maxResults)
+    public function setMaxResult($maxResult)
     {
-        $this->maxResults = $maxResults;
+        $this->maxResult = $maxResult;
 
         return $this;
     }
