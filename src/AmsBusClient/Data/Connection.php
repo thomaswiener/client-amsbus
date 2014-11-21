@@ -28,11 +28,6 @@ class Connection implements ConnectionInterface
     protected $searchFlags;
 
     /**
-     * @var int
-     */
-    protected $maxResult;
-
-    /**
      * Return parameters as array
      *
      * @return mixed
@@ -133,10 +128,7 @@ class Connection implements ConnectionInterface
 
         return $this;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 7f58cfa0d2781a85ebb91320f6bd3d6d06982c1e
     /**
      * @return int
      */
@@ -155,9 +147,4 @@ class Connection implements ConnectionInterface
 
         return $this;
     }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 7f58cfa0d2781a85ebb91320f6bd3d6d06982c1e
 }
